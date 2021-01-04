@@ -1,0 +1,15 @@
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\bin\Debug\GTA Booster.exe.config
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\bin\Debug\GTA Booster.exe
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\bin\Debug\GTA Booster.pdb
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.csprojAssemblyReference.cache
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\MainWindow.g.cs
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\App.g.cs
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster_MarkupCompile.cache
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster_MarkupCompile.lref
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\MainWindow.baml
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.g.resources
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA_Booster.Properties.Resources.resources
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.csproj.GenerateResource.cache
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.csproj.CoreCompileInputs.cache
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.exe
+C:\Users\nicolo\Desktop\GTA Booster\GTA Booster\obj\Debug\GTA Booster.pdb
