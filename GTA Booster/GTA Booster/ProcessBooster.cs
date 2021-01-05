@@ -15,7 +15,7 @@ namespace GTA_Booster
         {
             int pid = FindProcess();
             SuspendProcess(pid);
-            Thread.Sleep(6000);
+            Thread.Sleep(8000);
             ResumeProcess(pid);
         }
         private int FindProcess()
