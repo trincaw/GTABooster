@@ -2,8 +2,10 @@
 GTABooster is a free tool for GTA Online that allow you to speed up a lot of long loadings.
 To use this tool you just need to press the button in these cases:
 - Speed up finding online session
+
 When you are looking for a session or you are entering gta online wait about 10 seconds and then use this program to skip loading time.
 - Fix some freeze bug and protect from cheaters
+
 This program can also be used to fix small bugs or freezes related to the game session or save you from a cheater in your session.
 
 Disclamers
