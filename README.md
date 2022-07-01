@@ -1,7 +1,7 @@
 ﻿# GTABooster:
 
 ## Usage
-# Keyboard keys
+### Keyboard keys
 -F9 -> block internet for 12 seconds\
 Used to restart cayo perico heist\
 -F10 -> suspend gta process for 12 seconds\
