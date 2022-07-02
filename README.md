@@ -4,6 +4,6 @@
  <p>
   <h4 align="left"> F9 used to replay cayo perico  </h4>
   <h4 align="left"> F10 used to get in solo session  </h4>
-  <h4 align="left"> F11 deboug key  </h4>
+  <h4 align="left"> F11 debug key  </h4>
   <h4 align="left"> F12 close the program </h4>
 </p>
