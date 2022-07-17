@@ -1,22 +1,62 @@
-﻿using System;
+﻿using LuckyWeel;
+using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GTABooster
 {
     class Program
     {
-        [DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(int vKey);
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook,
+            LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,
+            IntPtr wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        private delegate IntPtr LowLevelKeyboardProc(
+    int nCode, IntPtr wParam, IntPtr lParam);
+
+        private const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x0100;
+        private static LowLevelKeyboardProc _proc = HookCallback;
+        private static IntPtr _hookID = IntPtr.Zero;
         static void Main()
         {
-            Task blockInternet = new Task(() => {
+            _hookID = SetHook(_proc);
+            Application.Run();
+            UnhookWindowsHookEx(_hookID);
+        }
+        private static bool IsInternetLocked = false;
+        private static IntPtr HookCallback(
+    int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (nCode >= 0)
+            {
+            Keys k = (Keys)Marshal.ReadInt32(lParam);
+            if (k >= Keys.F7 && k <= Keys.F12 && wParam == (IntPtr)WM_KEYDOWN)
+            {
+                switch (k)
+                {
+                    case Keys.F7:
+                        spinWheel();
+                        break;
+                    case Keys.F10:
+                        OptimiseGTA();
+                        break;
+                    case Keys.F8:
+                        OptimiseGTA(9000);
                         Process process = new Process()
                         {
                             StartInfo = new ProcessStartInfo()
@@ -29,42 +69,65 @@ namespace GTABooster
                                 RedirectStandardOutput = true
                             }
                         };
-                        process.Start();
-
-                        Thread.Sleep(12000);
-
-                        process.StartInfo.FileName = "ipconfig";
-                        process.StartInfo.Arguments = "/renew";
+                        IsInternetLocked = true;
                         process.Start();
                         process.WaitForExit();
-                    });
+                        foreach (var pro in Process.GetProcessesByName("GTA5"))
+                        {
+                            pro.Kill();
+                        }
+                        Thread.Sleep(5000);
+                        UnlockInternet();
+                        IsInternetLocked = false;
+                        break;
+                    case Keys.F11:
+                        OptimiseGTA(500);
+                        break;
+                    case Keys.F12:
+                        { if (IsInternetLocked) UnlockInternet(); Application.Exit(); }
+                        break;
 
-            Task suspendProcess = new Task(() => {
-                new Program().OptimiseGTA();
-            });
-            Task testReliability = new Task(() => {
-                new Program().OptimiseGTA(500);
-            });
-            while (true)
-            {
-                if (GetAsyncKeyState(0x78) == -32767 && blockInternet.Status != TaskStatus.Running)
-                    blockInternet.Start();
-                if (GetAsyncKeyState(0x79) == -32767 && suspendProcess.Status != TaskStatus.Running)
-                    suspendProcess.Start();
-                if (GetAsyncKeyState(0x7A) == -32767 && suspendProcess.Status != TaskStatus.Running)
-                    testReliability.Start();
-                if (GetAsyncKeyState(0x7B) == -32767)
-                {
-                    while (true)
-                    {
-                        if (blockInternet.Status != TaskStatus.Running && suspendProcess.Status != TaskStatus.Running)
-                            return;
-                    }
                 }
             }
+            }
+            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+        }
+        private static IntPtr SetHook(LowLevelKeyboardProc proc)
+        {
+            using (Process curProcess = Process.GetCurrentProcess())
+            using (ProcessModule curModule = curProcess.MainModule)
+            {
+                return SetWindowsHookEx(WH_KEYBOARD_LL, proc,
+                    GetModuleHandle(curModule.ModuleName), 0);
+            }
+        }
+        private static void UnlockInternet()
+        {
+            Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "ipconfig",
+                    Arguments = "/renew",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                }
+            };
+            process.Start();
+            process.WaitForExit();
+        }
+        private static void spinWheel()
+        {
+            //Thread.Sleep(4000); form continue to s
+            //Thread.Sleep(5000); when s appears
+            Thread.Sleep(4700);
+            KeyboardSimulator ks = new KeyboardSimulator();
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_S, timePressMs: 10);
         }
 
-        public void OptimiseGTA(int millliseconds = 12000)
+        public static void OptimiseGTA(int millliseconds = 12000)
         {
             int pid = FindProcess();
             if (pid == -1) return;
@@ -72,7 +135,7 @@ namespace GTABooster
             Thread.Sleep(millliseconds);
             ResumeProcess(pid);
         }
-        private int FindProcess()
+        private static int FindProcess()
         {
             Process currentProcess = Process.GetProcessesByName("GTA5").FirstOrDefault();
             if (currentProcess == null) return -1;

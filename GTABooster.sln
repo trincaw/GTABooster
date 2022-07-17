@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTABooster", "GTABooster.csproj", "{9A447AD6-58E0-442B-ADAA-527E6E41FCED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GTABooster", "GTABooster.csproj", "{257AE595-4F51-4AD2-8243-05A6FFD034FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9A447AD6-58E0-442B-ADAA-527E6E41FCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A447AD6-58E0-442B-ADAA-527E6E41FCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A447AD6-58E0-442B-ADAA-527E6E41FCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A447AD6-58E0-442B-ADAA-527E6E41FCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257AE595-4F51-4AD2-8243-05A6FFD034FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257AE595-4F51-4AD2-8243-05A6FFD034FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257AE595-4F51-4AD2-8243-05A6FFD034FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257AE595-4F51-4AD2-8243-05A6FFD034FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {288C3AFA-E44D-4193-B94C-BEE50EA2A9B4}
+		SolutionGuid = {3C8AB402-9CDD-492E-892C-0384A2DEA314}
 	EndGlobalSection
 EndGlobal
