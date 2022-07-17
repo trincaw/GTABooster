@@ -45,7 +45,7 @@ namespace GTABooster
             if (nCode >= 0)
             {
             Keys k = (Keys)Marshal.ReadInt32(lParam);
-            if (k >= Keys.F7 && k <= Keys.F12 && wParam == (IntPtr)WM_KEYDOWN)
+            if  ((k >= Keys.F7 && k <= Keys.F12 || k==Keys.L || k == Keys.N) && wParam == (IntPtr)WM_KEYDOWN)
             {
                 switch (k)
                 {
@@ -55,30 +55,14 @@ namespace GTABooster
                     case Keys.F10:
                         OptimiseGTA();
                         break;
+                    case Keys.L:
+                        callLester();
+                        break;
+                    case Keys.N:
+                        callMechanic();
+                        break;
                     case Keys.F8:
-                        OptimiseGTA(9000);
-                        Process process = new Process()
-                        {
-                            StartInfo = new ProcessStartInfo()
-                            {
-                                FileName = "ipconfig",
-                                Arguments = "/release",
-                                CreateNoWindow = true,
-                                UseShellExecute = false,
-                                RedirectStandardError = true,
-                                RedirectStandardOutput = true
-                            }
-                        };
-                        IsInternetLocked = true;
-                        process.Start();
-                        process.WaitForExit();
-                        foreach (var pro in Process.GetProcessesByName("GTA5"))
-                        {
-                            pro.Kill();
-                        }
-                        Thread.Sleep(5000);
-                        UnlockInternet();
-                        IsInternetLocked = false;
+                        resetCayo();
                         break;
                     case Keys.F11:
                         OptimiseGTA(500);
@@ -101,6 +85,31 @@ namespace GTABooster
                     GetModuleHandle(curModule.ModuleName), 0);
             }
         }
+        private static void resetCayo()
+        {
+            Process process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "ipconfig",
+                    Arguments = "/release",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true
+                }
+            };
+            IsInternetLocked = true;
+            process.Start();
+            foreach (var pro in Process.GetProcessesByName("GTA5"))
+            {
+                pro.Kill();
+            }
+            process.WaitForExit();
+            Thread.Sleep(5000);
+            UnlockInternet();
+            IsInternetLocked = false;
+        }
         private static void UnlockInternet()
         {
             Process process = new Process()
@@ -121,12 +130,56 @@ namespace GTABooster
         private static void spinWheel()
         {
             //Thread.Sleep(4000); form continue to s
+
             //Thread.Sleep(5000); when s appears
             Thread.Sleep(4700);
             KeyboardSimulator ks = new KeyboardSimulator();
-            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_S, timePressMs: 10);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_S, timePressMs: 90);
         }
-
+        private static void callMechanic()
+        {
+            KeyboardSimulator ks = new KeyboardSimulator();
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_I, timePressMs: 90);
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_K, timePressMs: 90);
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.RETURN, timePressMs: 90);
+            for (int i = 0; i < 14; i++)
+            {
+                Thread.Sleep(50);
+                ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_I, timePressMs: 90);
+            }
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.RETURN, timePressMs: 90);
+        }
+        private static void callLester()
+        {
+            KeyboardSimulator ks = new KeyboardSimulator();
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.BACK, timePressMs: 90);
+            Thread.Sleep(500);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_I, timePressMs: 90);
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_K, timePressMs: 90);
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.RETURN, timePressMs: 90);
+            for (int i = 0; i < 14; i++)
+            {
+                Thread.Sleep(50);
+                ks.SendAndWait(KeyboardSimulator.ScanCodeShort.KEY_I, timePressMs: 90);
+            }
+            Thread.Sleep(50);
+            ks.SendAndWait(KeyboardSimulator.ScanCodeShort.RETURN, timePressMs: 90);
+        }
         public static void OptimiseGTA(int millliseconds = 12000)
         {
             int pid = FindProcess();
