@@ -9,3 +9,5 @@
   * F11 debug key ~ if game freeze for an istant GTAbooster is working                                                    
   * F12 close the program
 
+### Disclamer
+Please note that the use of GTABooster is at your own risk. While the tool aims to enhance your GTA 5 Online experience, it's important to use it responsibly and in accordance with the terms of service of the game.
